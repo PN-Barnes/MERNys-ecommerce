@@ -1,0 +1,22 @@
+{
+  "name": "mern-ecommerce",
+  "version": "1.0.0",
+  "description": "MERN shopping cart application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PN-Barnes/MERNys-ecommerce.git"
+  },
+  "author": "Paul Barnes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PN-Barnes/MERNys-ecommerce/issues"
+  },
+  "homepage": "https://github.com/PN-Barnes/MERNys-ecommerce#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
