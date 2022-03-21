@@ -65,7 +65,6 @@ const productSchema = new Schema(
   }
 );
 
-const Reviews = mongoose.model('Reviews', reviewSchema);
 const Product = mongoose.model('Product', productSchema);
 
-module.exports = { Product, Reviews };
+module.exports = Product;

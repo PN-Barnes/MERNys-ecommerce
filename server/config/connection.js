@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mernysdb');
+const dbConnect = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
 
-module.exports = mongoose.connection;
+    console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline);
+  } catch (error) {
+    console.error(`Error: ${error.message}`.red.underline.bold);
+    process.exit(1);
+  }
+};
+module.exports = dbConnect;

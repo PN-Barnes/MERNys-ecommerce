@@ -4,7 +4,7 @@ const products = require('./data/products');
 const colors = require('colors');
 
 dotenv.config();
-const db = require('./config/connection');
+const dbConnect = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -25,12 +25,12 @@ app.get('/api/products/:id', (req, res) => {
   res.json(product);
 });
 
-db.once('open', () => {
-  app.listen(
-    PORT,
-    console.log(
-      `Server running in ${process.env.NODE_ENV} on port ${PORT}`.cyan.underline
-        .bold
-    )
-  );
-});
+dbConnect();
+
+app.listen(
+  PORT,
+  console.log(
+    `Server running in ${process.env.NODE_ENV} on port ${PORT}`.cyan.underline
+      .bold
+  )
+);

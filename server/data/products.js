@@ -1,5 +1,3 @@
-const { builtinModules } = require('module');
-
 const products = [
   {
     name: 'Airpods Wireless Bluetooth Headphones',
