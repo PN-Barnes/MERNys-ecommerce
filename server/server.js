@@ -1,6 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
-
+const errorMiddleware = require('./middleware/errorMiddleware');
+const notFound = errorMiddleware.notFound;
+const errorHandler = errorMiddleware.errorHandler;
 const colors = require('colors');
 
 const productRoutes = require('./routes/productRoutes');
@@ -15,6 +17,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use('/api/products', productRoutes);
+
+app.use(notFound);
+
+app.use(errorHandler);
 
 dbConnect();
 
