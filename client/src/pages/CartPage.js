@@ -29,12 +29,20 @@ const CartPage = ({ location, history }) => {
     }
   }, [dispatch, productId, qty]);
 
+  const updateQtyHandler = (id, qty, action) => {
+    if (action === 'INC') {
+      dispatch(addToCart(id, qty + 1));
+    }
+    if (action === 'DEC') {
+      dispatch(addToCart(id, qty - 1));
+    }
+  };
   const removeFromCart = (id) => {
     console.log('remove');
   };
   return (
     <Row>
-      <Col md={8}>
+      <Col md={9}>
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <Message>
@@ -45,36 +53,54 @@ const CartPage = ({ location, history }) => {
             {cartItems.map((item) => (
               <ListGroup.Item key={item.product}>
                 <Row>
-                  <Col>
+                  <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/product/${item.product}`}></Link>
+                    <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
-                  <Col md={2}>
-                    <Form.Control
-                      as='select'
-                      value={qty}
-                      onChange={(e) =>
-                        dispatch(
-                          addToCart(item.product, Number(e.target.value))
-                        )
+                  <Col md={2} className='text-center'>
+                    <Button
+                      type='button'
+                      variant='dark'
+                      className='mx-1'
+                      size='sm'
+                      onClick={() =>
+                        updateQtyHandler(item.product, item.qty, 'DEC')
                       }
                     >
-                      {[...Array(item.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </Form.Control>
+                      <i className='fas fa-minus'></i>
+                    </Button>
+
+                    <p
+                      type='text'
+                      className='mx-1 text-center'
+                      value={item.qty}
+                      id='qty'
+                      size='1'
+                    >
+                      {item.qty}
+                    </p>
+
+                    <Button
+                      type='button'
+                      className='mx-1'
+                      variant='dark'
+                      size='sm'
+                      onClick={() =>
+                        updateQtyHandler(item.product, item.qty, 'INC')
+                      }
+                    >
+                      <i className='fas fa-plus '></i>
+                    </Button>
                   </Col>
-                  <Col md={2}>
+                  <Col md={2} className='text-center'>
                     <Button
                       type='button'
                       variant='light'
                       onClick={() => removeFromCart(item.product)}
                     >
-                      <i className='fas fa-trash'></i>
+                      <i className='fas fa-trash '></i>
                     </Button>
                   </Col>
                 </Row>
@@ -83,8 +109,22 @@ const CartPage = ({ location, history }) => {
           </ListGroup>
         )}
       </Col>
-      <Col md={2}></Col>
-      <Col md={2}></Col>
+      <Col md={3}>
+        <Card>
+          <ListGroup variant='flush'>
+            <ListGroup.Item>
+              <h2>
+                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)} )
+                Items
+              </h2>
+              $
+              {cartItems
+                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .toFixed(2)}
+            </ListGroup.Item>
+          </ListGroup>
+        </Card>
+      </Col>
     </Row>
   );
 };
