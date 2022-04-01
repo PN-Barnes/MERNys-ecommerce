@@ -11,7 +11,7 @@ import {
   Button,
   Card,
 } from 'react-bootstrap';
-import { addToCart } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 
 const CartPage = ({ location, history }) => {
   const navigate = useNavigate();
@@ -39,8 +39,8 @@ const CartPage = ({ location, history }) => {
   // <Button type='button'  variant="dark" size='sm'onClick ={() => updateQtyHandler(item.product,item.qty,'INC')}> + </Button>
   // <input type="text" value={item.qty}  id='qty'size="1" />
   // <Button  type='button'   variant='dark' size='sm' onClick ={() => updateQtyHandler(item.product,item.qty,'DEC')}> - </Button>
-  const removeFromCart = (id) => {
-    console.log('remove');
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
   };
 
   const checkOutHandler = () => {
@@ -88,7 +88,7 @@ const CartPage = ({ location, history }) => {
                     <Button
                       type='button'
                       variant='light'
-                      onClick={() => removeFromCart(item.product)}
+                      onClick={() => removeFromCartHandler(item.product)}
                     >
                       <i className='fas fa-trash '></i>
                     </Button>
@@ -116,7 +116,7 @@ const CartPage = ({ location, history }) => {
               <Button
                 type='button'
                 className='btn-block'
-                disable={cartItems.length === 0 ? true : 0}
+                disable={cartItems.length === 0 ? 1 : 0}
                 onClick={checkOutHandler}
               >
                 Proceed to checkout
