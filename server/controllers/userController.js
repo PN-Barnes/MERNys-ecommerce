@@ -1,4 +1,5 @@
 const express = require('express');
+const generateToken = require('../utils/generateToken');
 const User = require('../models/userModel');
 
 // ? @desc    Auth user & get a token
@@ -15,7 +16,7 @@ const authUser = async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: null,
+      token: generateToken(user._id),
     });
   } else {
     res.status(401);
