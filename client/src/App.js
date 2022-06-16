@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import ProductScreen from './pages/ProductScreen';
 import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterScreen';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Container>
           <Routes>
             <Route path='/login' element={<LoginPage />} />
+            <Route path='/register' element={<RegisterPage />} />
             <Route path='/product/:id' element={<ProductScreen />} />
             <Route path='/cart' element={<CartPage />} />
             <Route path='/cart/:id' element={<CartPage />} />
